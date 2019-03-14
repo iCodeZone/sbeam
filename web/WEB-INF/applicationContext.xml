@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <!-- FactoryBean -->
+    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="username" value="root"/>
+        <property name="password" value="zhu1998"/>
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/sbeam?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"/>
+    </bean>
+
+    <bean name="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="use_sql_comments">true</prop>
+            </props>
+        </property>
+        <property name="mappingResources">
+            <list>
+                <value>sbeam/po/user/Customer.hbm.xml</value>
+                <value>sbeam/po/order/Order.hbm.xml</value>
+                <value>sbeam/po/evaluate/Evaluate.hbm.xml</value>
+                <value>sbeam/po/collection/GameCollection.hbm.xml</value>
+
+                <value>sbeam/po/game/Game.hbm.xml</value>
+                <value>sbeam/po/game/GameAndType.hbm.xml</value>
+                <value>sbeam/po/game/GameType.hbm.xml</value>
+                <value>sbeam/po/message/Message.hbm.xml</value>
+                <value>sbeam/po/ticket/Ticket.hbm.xml</value>
+
+                <value>sbeam/po/developer/individual/IndividualDeveloper.hbm.xml</value>
+                <value>sbeam/po/developer/team/TeamDeveloper.hbm.xml</value>
+
+                <value>sbeam/po/administrator/Administrator.hbm.xml</value>
+                <value>sbeam/po/staff/Staff.hbm.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 配置事物管理器 -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- 定义增强处理拦截方法 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="login" propagation="REQUIRED"/>
+            <tx:method name="update" propagation="REQUIRED"/>
+            <tx:method name="register" propagation="REQUIRED"/>
+            <tx:method name="setShowGame" propagation="REQUIRED"/>
+            <tx:method name="setCollection" propagation="REQUIRED"/>
+            <tx:method name="addEvaluate" propagation="REQUIRED"/>
+            <tx:method name="delEvaluate" propagation="REQUIRED"/>
+            <tx:method name="buy*" propagation="REQUIRED"/>
+            <tx:method name="getOrder" propagation="REQUIRED"/>
+            <tx:method name="getMyGame" propagation="REQUIRED"/>
+            <tx:method name="login*" propagation="REQUIRED" />
+            <tx:method name="register*" propagation="REQUIRED" />
+            <tx:method name="delet*" propagation="REQUIRED" />
+            <tx:method name="refund*" propagation="REQUIRED" />
+            <tx:method name="download*" propagation="REQUIRED" />
+            <tx:method name="send*" propagation="REQUIRED" />
+            <tx:method name="jointeam" propagation="REQUIRED" />
+            <tx:method name="confirmmessage" propagation="REQUIRED" />
+            <tx:method name="deletestaff" propagation="REQUIRED" />
+            <tx:method name="quitteam" propagation="REQUIRED" />
+            <tx:method name="acceptstaff" propagation="REQUIRED" />
+            <tx:method name="inviteindi" propagation="REQUIRED" />
+            <tx:method name="acceptteam" propagation="REQUIRED" />
+            <tx:method name="gameupload" propagation="REQUIRED" />
+            <tx:method name="delgame" propagation="REQUIRED" />
+            <tx:method name="setNewProblem" propagation="REQUIRED" />
+            <tx:method name="alterIndiData" propagation="REQUIRED" />
+            <tx:method name="alterTeamData" propagation="REQUIRED" />
+            <tx:method name="upload*" propagation="REQUIRED"/>
+            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="*Login" propagation="REQUIRED" />
+            <tx:method name="dispatch*" propagation="REQUIRED" />
+            <tx:method name="dismiss*" propagation="REQUIRED" />
+            <tx:method name="onTheShelf*" propagation="REQUIRED" />
+            <tx:method name="offTheShelf*" propagation="REQUIRED" />
+            <tx:method name="check*" propagation="REQUIRED" />
+            <tx:method name="reply*" propagation="REQUIRED" />
+            <tx:method name="deliver*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="modify*" propagation="REQUIRED" />
+            <tx:method name="confirm*" propagation="REQUIRED" />
+            <tx:method name="send*" propagation="REQUIRED" />
+            <tx:method name="place*" propagation="REQUIRED" />
+            <tx:method name="*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="allServiceMethod" expression="execution(* sbeam.service.*.*.*(..))"/>
+
+        <aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
+    </aop:config>
+
+    <!-- dao -->
+    <bean name="baseDAO" class="sbeam.dao.BaseHibernateDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean name="simpleDateFormat" class="java.text.SimpleDateFormat">
+        <constructor-arg value="yyyy-MM-dd"/>
+    </bean>
+
+    <!-- user -->
+    <bean name="customerTestBean" class="sbeam.po.user.Customer" scope="prototype">
+        <property name="id" value="1"/>
+        <property name="account" value="friends"/>
+        <property name="password" value="123456"/>
+        <property name="phone" value="15869168357"/>
+        <property name="birthday">
+            <bean factory-bean="simpleDateFormat" factory-method="parse">
+                <constructor-arg value="1998-05-21"/>
+            </bean>
+        </property>
+    </bean>
+    <bean name="userDAO" class="sbeam.dao.userDAO.CustomerDAO" parent="baseDAO"/>
+    <bean id="userService" class="sbeam.service.user.UserService">
+        <property name="customerDAO" ref="userDAO"/>
+    </bean>
+    <bean id="userAction" class="sbeam.action.user.UserAction" scope="prototype">
+        <property name="userService" ref="userService"/>
+        <!--<property name="loginUser" ref="customerTestBean"/>
+        <property name="friendId" value="2"/>
+        <property name="orderId" value="1"/>
+        <property name="gameId" value="1"/>
+        <property name="word" value="456416"/>
+        <property name="star" value="5"/>
+        <property name="evaluateId" value="2"/>-->
+    </bean>
+
+    <!-- game -->
+    <bean name="gameDAO" class="sbeam.dao.gameDAO.GameDAO" parent="baseDAO"/>
+    <bean id="gameService" class="sbeam.service.game.GameService">
+        <property name="gameDAO" ref="gameDAO"/>
+    </bean>
+    <bean id="gameAction" class="sbeam.action.game.GameAction" scope="prototype">
+        <property name="gameService" ref="gameService"/>
+    </bean>
+
+    <!-- order -->
+    <bean name="orderDAO" class="sbeam.dao.orderDAO.OrderDAO" parent="baseDAO"/>
+    <bean id="downloadDAO" class="sbeam.dao.gameDAO.DownloadDAO" parent="baseDAO"/>
+    <bean id="ticketDAO" class="sbeam.dao.ticketDAO.TicketDAO" parent="baseDAO"/>
+
+    <bean id="orderService" class="sbeam.service.order.Orderservice">
+        <property name="iorderDAO" ref="orderDAO" />
+    </bean>
+    <bean id="downloadService" class="sbeam.service.game.Downloadservice">
+        <property name="idownloadDAO" ref="downloadDAO" />
+    </bean>
+    <bean id="ticketService" class="sbeam.service.ticket.TicketService">
+        <property name="ticketDAO" ref="ticketDAO" />
+    </bean>
+
+    <bean id="sureAction" class="sbeam.action.order.Sureaction">
+        <property name="iorderService" ref="orderService" />
+    </bean>
+    <bean id="refuseAction" class="sbeam.action.order.Refuseaction">
+        <property name="iorderService" ref="orderService" />
+    </bean>
+    <bean id="orderAction" class="sbeam.action.order.Orderaction">
+        <property name="iorderService" ref="orderService" />
+    </bean>
+    <bean id="refundAction" class="sbeam.action.order.Refundaction">
+        <property name="iorderService" ref="orderService" />
+    </bean>
+    <bean id="customerAction" class="sbeam.action.user.UserAction">
+        <property name="userService" ref="userService" />
+    </bean>
+    <bean id="downloadAction" class="sbeam.action.game.Downloadaction">
+        <property name="iDownloadService" ref="downloadService" />
+    </bean>
+    <bean id="ticketAction" class="sbeam.action.ticket.Sendaction">
+        <property name="ticketService" ref="ticketService" />
+    </bean>
+
+    <!--个人开发者-->
+    <!--个人开发者DAO-->
+    <bean id="indiDeveDAO" class="sbeam.dao.developer.IndividualDeveloperDAO" parent="baseDAO"/>
+
+    <!--个人开发者service-->
+    <bean id="indiDeveService" class="sbeam.service.developer.IndividualDeveloperService">
+        <property name="indiDeveDAO" ref="indiDeveDAO" />
+        <property name="teamDeveDAO" ref="teamDeveDAO" />
+        <property name="messageDAO" ref="messageDAO" />
+    </bean>
+
+    <!--个人开发者Action-->
+    <bean id="indiDeveAction" class="sbeam.action.developer.IndividualDeveloperAction" scope="prototype">
+        <property name="indiDeveService" ref="indiDeveService" />
+    </bean>
+
+    <!--团队开发者-->
+    <!--团队开发者DAO-->
+    <bean id="teamDeveDAO" class="sbeam.dao.developer.TeamDeveloperDAO" parent="baseDAO"/>
+
+    <!--团队开发者service-->
+    <bean id="teamDeveService" class="sbeam.service.developer.TeamDeveloperService">
+        <property name="teamDeveDAO" ref="teamDeveDAO"/>
+        <property name="indiDeveDAO" ref="indiDeveDAO"/>
+        <property name="messageDAO" ref="messageDAO"/>
+    </bean>
+
+    <!--团队开发者action-->
+    <bean id="teamDeveAction" class="sbeam.action.developer.TeamDeveloperAction" scope="prototype">
+        <property name="teamDeveService" ref="teamDeveService"/>
+    </bean>
+
+
+    <!--消息相关-->
+    <!--消息DAO-->
+    <bean id="messageDAO" class="sbeam.dao.message.MessageDAO" parent="baseDAO"/>
+
+    <!--消息service-->
+    <bean id="messageService" class="sbeam.service.message.MessageService">
+        <property name="messageDAO" ref="messageDAO"/>
+    </bean>
+
+    <!--消息action-->
+    <bean id="messageAction" class="sbeam.action.message.MessageAction" scope="prototype">
+        <property name="messageService" ref="messageService"/>
+    </bean>
+
+    <!--游戏控制相关-->
+    <!--游戏控制action-->
+    <bean id="gameControlAction" class="sbeam.action.gamecontrol.GameControlAction" scope="prototype">
+        <property name="gameControlService" ref="gameControlService"/>
+    </bean>
+
+    <!--游戏控制service-->
+    <bean id="gameControlService" class="sbeam.service.gamecontrol.GameControlService">
+        <property name="gameControlDAO" ref="gameControlDAO"/>
+    </bean>
+
+    <!--游戏控制DAO-->
+    <bean id="gameControlDAO" class="sbeam.dao.gamecontrol.GameControlDAO" parent="baseDAO"/>
+
+    <!--工单提交-->
+    <!--工单Action-->
+    <bean id="problemAction" class="sbeam.action.problem.ProblemAction" scope="prototype">
+        <property name="problemService" ref="problemService"/>
+    </bean>
+
+    <!--工单service-->
+    <bean id="problemService" class="sbeam.service.problem.ProblemService">
+        <property name="problemDAO" ref="problemDAO"/>
+    </bean>
+
+    <!--工单DAO-->
+    <bean id="problemDAO" class="sbeam.dao.problem.ProblemDAO" parent="baseDAO"/>
+
+
+    <!-- 配置Staff -->
+    <bean id="StaffAction" class="sbeam.action.staff.StaffAction">
+        <property name="staffService" ref="StaffService"/>
+    </bean>
+    <bean id="StaffService" class="sbeam.service.staff.StaffService">
+        <property name="staffDAO" ref="StaffDAO"/>
+    </bean>
+    <bean id="StaffDAO" class="sbeam.dao.staff.StaffDAO" parent="baseDAO"/>
+
+    <!-- 配置Administrator -->
+    <bean id="AdministratorAction" class="sbeam.action.administrator.AdministratorAction">
+        <property name="administratorService" ref="AdministratorService"/>
+        <property name="staffService" ref="StaffService"/>
+    </bean>
+    <bean id="AdministratorService" class="sbeam.service.administrator.AdministratorService">
+        <property name="administratorDAO" ref="AdministratorDAO"/>
+    </bean>
+    <bean id="AdministratorDAO" class="sbeam.dao.administrator.AdministratorDAO" parent="baseDAO"/>
+
+</beans>

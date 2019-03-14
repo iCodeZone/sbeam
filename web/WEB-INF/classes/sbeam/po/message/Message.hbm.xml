@@ -1,0 +1,19 @@
+<?xml version="1.0"  encoding="utf-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="sbeam.po.message.Message" table="message" catalog="sbeam">
+        <id name="id" type="java.lang.Integer" column="mid">
+            <generator class="increment"/>
+        </id>
+        <property name="time" type="java.util.Date" column="mtime"/>
+        <property name="content" type="java.lang.String" column="mcontent"/>
+        <property name="check" type="java.lang.Boolean" column="mcheck"/>
+        <property name="tid" type="java.lang.Integer" column="tid"/>
+        <property name="type" type="java.lang.Integer" column="mtype"/>
+
+    </class>
+</hibernate-mapping>

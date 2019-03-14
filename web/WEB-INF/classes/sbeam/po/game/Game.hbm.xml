@@ -1,0 +1,40 @@
+<?xml version="1.0"  encoding="utf-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="sbeam.po.game.Game" table="game" catalog="sbeam">
+        <id name="id" type="java.lang.Integer" column="gid">
+            <generator class="increment"/>
+        </id>
+
+        <property name="type" type="java.lang.Boolean" column="utype"/>
+        <property name="developerId" type="java.lang.Integer" column="uid"/>
+        <property name="updatedate" type="java.util.Date" column="utime"/>
+        <property name="name" type="java.lang.String" column="gname" length="20"/>
+        <property name="dir" type="java.lang.String" column="gdir" length="100"/>
+        <property name="developerPrice" type="java.lang.Double" column="dprice"/>
+        <property name="mallPrice" type="java.lang.Double" column="mprice"/>
+        <property name="discountPrice" type="java.lang.Double" column="sprice"/>
+        <property name="check" type="java.lang.Boolean" column="gcheck"/>
+        <property name="ground" type="java.lang.Boolean" column="gground"/>
+        <property name="gpv" type="java.lang.Integer" column="gpv"/>
+        <property name="sid" type="java.lang.Integer" column="sid"/>
+        <property name="ctime" type="java.util.Date" column="ctime"/>
+
+        <set name="types" table="gameandgametype" cascade="save-update" lazy="false">
+            <key column="gid"/>
+            <many-to-many column="gtid" class="sbeam.po.game.GameType"/>
+        </set>
+
+        <set name="evaluates" cascade="all" inverse="true">
+            <key column="gid" not-null="true"/>
+            <one-to-many class="sbeam.po.evaluate.Evaluate"/>
+        </set>
+
+
+
+    </class>
+</hibernate-mapping>

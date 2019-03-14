@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.multipart.maxSize" value="20971520000"/>
+    <package name="strutsBean" extends="struts-default" namespace="/">
+        <action name="getAllGame" class="gameAction" method="getAllGame">
+            <result name="success">/game/GameView.jsp</result>
+        </action>
+
+        <action name="setCollection" class="userAction" method="setCollection">
+            <result name="success">/user/collection/playCollection.jsp</result>
+        </action>
+
+        <action name="getCollection" class="userAction" method="getCollection">
+            <result name="success">/user/collection/playCollection.jsp</result>
+        </action>
+
+        <action name="delEvaluate" class="userAction" method="delEvaluate">
+            <result name="success">/user/evaluate/playEvaluate.jsp</result>
+        </action>
+
+        <action name="getEvaluate" class="userAction" method="getEvaluate">
+            <result name="success">/user/evaluate/playEvaluate.jsp</result>
+        </action>
+
+        <action name="getMyOrder" class="userAction" method="getOrder">
+            <result name="success">/user/order/playOrder.jsp</result>
+        </action>
+
+        <action name="getMyGame" class="userAction" method="getMyGame">
+            <result name="success">/user/myGame/playMyGame.jsp</result>
+        </action>
+
+        <action name="setShowGame" class="userAction" method="setShowGame">
+            <result name="success">/user/myGame/playMyGame.jsp</result>
+        </action>
+
+        <action name="getGameDetail" class="gameAction" method="getById">
+            <result name="success">/game/GameDetail.jsp</result>
+        </action>
+
+        <action name="addEvaluate" class="userAction" method="addEvaluate">
+            <result name="success">/user/evaluate/evaluateSuccess.jsp</result>
+        </action>
+
+        <action name="getGameByType" class="gameAction" method="getByType">
+            <result name="success">/game/GameTypeView.jsp</result>
+        </action>
+
+        <action name="getGameByWord" class="gameAction" method="getByWord">
+            <result name="success">/game/GameWordView.jsp</result>
+        </action>
+
+        <action name="getGameEvaluate" class="gameAction" method="getGameEvaluate">
+            <result name="success">/game/GameEvaluate.jsp</result>
+        </action>
+
+        <action name="getFriendGame" class="userAction" method="getFriendGame">
+            <result name="success">/game/FriendGame.jsp</result>
+        </action>
+
+        <!-- LX -->
+
+        <action name="yes" class="sureAction" method="sure">
+            <result name="buysuccess">/buysuccess.jsp</result>
+        </action>
+        <action name="no" class="refuseAction" method="refuse">
+            <result name="buyfail">/nosuccess.jsp</result>
+        </action>
+        <action name="login" class="customerAction" method="login">
+            <result name="loginSuccess">/loginsuccess.jsp</result>
+            <result name="loginFail">/loginfail.jsp</result>
+        </action>
+        <action name="update" class="customerAction" method="update">
+            <result name="updateSuccess">/loginsuccess.jsp</result>
+        </action>
+        <action name="register" class="customerAction" method="register">
+            <result name="registerSuccess">/loginsuccess.jsp</result>
+            <result name="registerFail">/registerfail.jsp</result>
+        </action>
+        <action name="buy" class="orderAction" method="buy">
+            <result name="buySuccess">/sure.jsp</result>
+        </action>
+        <action name="refund" class="refundAction" method="refund">
+            <result name="refundSuccess">/refundsuccess.jsp</result>
+            <result name="refundFail">/refundfail.jsp</result>
+        </action>
+        <action name="download" class="downloadAction" method="download">
+            <result type="stream">
+                <param name="inputName">is</param>
+                <param name="contentDisposition">attachment;filename=${fileName}</param><!---->
+                <param name="bufferSize">4096</param>
+            </result>
+            <result name="downloadFail">/downloadfail.jsp</result>
+            <result name="downloadSuccess">/downloadsuccess.jsp</result>
+        </action>
+        <action name="sendticket" class="ticketAction" method="send">
+            <result name="sendSuccess">/sendsuccess.jsp</result>
+            <result name="sendFail">/sendfail.jsp</result>
+        </action>
+        <action name="playtickets" class="ticketAction" method="play">
+            <result name="playSuccess">/playticket.jsp</result>
+            <result name="playFail">/loginfail.jsp</result>
+        </action>
+
+        <!-- lxy -->
+        <!--个人开发者-->
+        <!--传入个人开发者对象，验证注册-->
+        <action name="indiDeveRegister" class="indiDeveAction" method="register">
+            <result name="registersuccess">/developer/IndiDeveRegisterSuccess.jsp</result>
+            <result name="registerfail">/developer/IndiDeveRegisterFail.jsp</result>
+        </action>
+
+        <!--传入个人开发者对象，验证登录-->
+        <action name="indiDeveLogin" class="indiDeveAction" method="login">
+            <!--<result name="loginsuccess">/developer/IndiDeveLoginSuccess.jsp</result>-->
+            <result name="loginsuccess" type="chain">getMessages</result>
+            <result name="loginfail">/developer/IndiDeveLoginFail.jsp</result>
+        </action>
+
+        <!--传入团队开发者对象，查找团队-->
+        <action name="indiDeveFindTeam" class="indiDeveAction" method="findteam">
+            <result name="findteampage">/developer/FindedTeam.jsp</result>
+        </action>
+
+        <!--传入个人开发者和团队开发者，处理申请加入消息-->
+        <action name="indiDeveJoinTeam" class="indiDeveAction" method="jointeam">
+            <result name="jointeam">/developer/IndiDeveLoginSuccess.jsp</result>
+        </action>
+
+        <!--退出团队-->
+        <action name="quitTeam" class="indiDeveAction" method="quitteam">
+            <result name="quitteam">/developer/IndiDeveLoginSuccess.jsp</result>
+        </action>
+
+        <!--根据消息处理是否加入团队-->
+        <action name="acceptTeam" class="indiDeveAction" method="acceptteam">
+            <result name="acceptteam" type="chain">confirmMessage</result>
+        </action>
+
+        <!--修改个人资料-->
+        <action name="alterIndiData" class="indiDeveAction" method="alterIndiData">
+            <result name="successalter">/developer/IndiDeveLoginSuccess.jsp</result>
+            <result name="failalter">/developer/AlterIndiData.jsp</result>
+        </action>
+
+
+        <!--团队开发者-->
+        <!--传入团队开发者对象，处理注册-->
+        <action name="teamDeveRegister" class="teamDeveAction" method="register">
+            <result name="registersuccess">/developer/TeamDeveRegisterSuccess.jsp</result>
+            <result name="registerfail">/developer/TeamDeveRegisterFail.jsp</result>
+        </action>
+
+        <!--传入团队开发者对象，处理登录-->
+        <action name="teamDeveLogin" class="teamDeveAction" method="login">
+            <!--<result name="loginsuccess">/developer/TeamDeveLoginSuccess.jsp</result>-->
+            <result name="loginsuccess" type="chain">getMessages</result>
+            <result name="loginfail">/developer/TeamDeveLoginFail.jsp</result>
+        </action>
+
+        <!--传入团队对象和个人对象，删除成员-->
+        <action name="deleteStaff" class="teamDeveAction" method="deletestaff">
+            <result name="deletestaff">/developer/TeamDeveLoginSuccess.jsp</result>
+        </action>
+
+        <!--根据消息选择是否接受成员加入-->
+        <action name="acceptStaff" class="teamDeveAction" method="acceptstaff">
+            <result name="acceptstaff" type="chain">confirmMessage</result>
+        </action>
+
+        <!--输入ID选择邀请成员加入-->
+        <action name="teamDeveFindIndi" class="teamDeveAction" method="findindi">
+            <result name="findindipage">/developer/FindedIndi.jsp</result>
+        </action>
+
+        <!--传入个人开发者和团队开发者，处理申请加入消息-->
+        <action name="teamDeveInviteIndi" class="teamDeveAction" method="inviteindi">
+            <result name="inviteindi">/developer/TeamDeveLoginSuccessTeam.jsp</result>
+        </action>
+
+        <!--修改团队资料-->
+        <action name="alterTeamData" class="teamDeveAction" method="alterTeamData">
+            <result name="successalter">/developer/TeamDeveLoginSuccess.jsp</result>
+            <result name="failalter">/developer/AlterTeamData.jsp</result>
+        </action>
+
+
+        <!--消息-->
+        <!--提前在request中存入目标id和返回页面地址，获取目标所有未阅message-->
+        <action name="getMessages" class="messageAction" method="getmessages">
+            <result name="returnpage">${location}</result>
+        </action>
+
+        <!--传入一个消息并设为已读-->
+        <action name="confirmMessage" class="messageAction" method="confirmmessages">
+            <result name="confirm">${location}</result>
+        </action>
+
+        <!--每次点击查看消息就获取一次消息-->
+        <action name="getMessagesAgain" class="messageAction" method="getMessagesAgain">
+            <result name="getMessagesAgain">/developer/MessagesPage.jsp</result>
+        </action>
+
+        <!--游戏控制-->
+        <!--获取所有的游戏类型-->
+        <action name="getAllType" class="gameControlAction" method="getalltype">
+            <result name="alltype">/developer/UploadNewGame.jsp</result>
+        </action>
+        <!--游戏上传-->
+        <action name="gameUpload" class="gameControlAction" method="gameupload">
+            <result name="gameupload">/developer/UploadSuccess.jsp</result>
+        </action>
+        <!--删除游戏-->
+        <action name="delGame" class="gameControlAction" method="delgame">
+            <result name="delgame">/developer/GameList.jsp</result>
+        </action>
+        <!--上传游戏新版本前置条件-->
+        <action name="PreUploadNewVersion" class="gameControlAction" method="preuploadnewversion">
+            <result name="preuploadnewversion">/developer/uploadNewVersion.jsp</result>
+        </action>
+        <!--上传游戏新版本-->
+        <action name="uploadNewVersion" class="gameControlAction" method="uploadnewversion">
+            <result name="uploadnewversion">/developer/GameList.jsp</result>
+        </action>
+        <!--管理游戏相关文件-->
+        <action name="gameFiles" class="gameControlAction" method="gamefiles">
+            <result name="gamefiles">/developer/GameFiles.jsp</result>
+        </action>
+        <!--删除一个游戏相关文件-->
+        <action name="delGameFile" class="gameControlAction" method="delgamefile">
+            <result name="delgamefile">/developer/GameFiles.jsp</result>
+        </action>
+        <!--上传一个新的游戏文件-->
+        <action name="uploadNewGameFile" class="gameControlAction" method="uploadNewGameFile">
+            <result name="uploadNewGameFile">/developer/GameFiles.jsp</result>
+        </action>
+        <!--获取游戏详情-->
+        <action name="seeGameDetails" class="gameControlAction" method="seeGameDetails">
+            <result name="seeGameDetails">/developer/GameDetails.jsp</result>
+        </action>
+        <!--获取一个游戏在一定时间内的销售情况-->
+        <action name="getGameSaleStatus" class="gameControlAction" method="getGameSaleStatus">
+            <result name="getGameSaleStatus">/developer/GameDetails.jsp</result>
+        </action>
+        <!--获取某个开发者所有游戏的销售情况-->
+        <action name="getAllGamesSaleStatus" class="gameControlAction" method="getAllGamesSaleStatus">
+            <result name="getAllGamesSaleStatus">/developer/AllGamesSaleStatus.jsp</result>
+        </action>
+
+        <!--工单提交-->
+        <!--提交一个工单-->
+        <action name="submitProblem" class="problemAction" method="submitProblem">
+            <result name="submitProblem">${location}</result>
+        </action>
+        <!--获取某用户的所有工单-->
+        <action name="getAllProblem" class="problemAction" method="getAllProblem">
+            <result name="getAllProblem">/developer/TicketsPage.jsp</result>
+        </action>
+        <!--查看工单详情前置-->
+        <action name="preProblemDetails" class="problemAction" method="preProblemDetails">
+            <result name="preProblemDetails">/developer/ProblemDetails.jsp</result>
+        </action>
+
+
+        <!--游戏-->
+        <action name="gameList" class="gameAction" method="gamelist">
+            <result name="gamelist">/developer/GameList.jsp</result>
+        </action>
+
+
+
+        <!-- gs -->
+        <action name="staffLogin" class="StaffAction" method="staffLogin">
+            <result name="loginsuccess">/Staff/StaffPage.jsp</result>
+            <result name="loginfail">AdminStaffLogin.jsp</result>
+        </action>
+        <action name="adminLogin" class="AdministratorAction" method="adminLogin">
+            <result name="loginsuccess">/Admin/AdminPage.jsp</result>
+            <result name="loginfail">/AdminStaffLogin.jsp</result>
+        </action>
+
+        <!-- 客服功能 -->
+        <action name="findTickets" class="StaffAction" method="findTickets">
+            <result name="findsuccess">/Staff/HandleTicket.jsp</result>
+        </action>
+        <action name="ticketDetail" class="StaffAction" method="ticketDetail">
+            <result name="detailsuccess">/Staff/TicketDetail.jsp</result>
+        </action>
+        <action name="messageDetail" class="StaffAction" method="ticketDetail">
+            <result name="detailsuccess">/Admin/ConfirmMessage.jsp</result>
+        </action>
+        <action name="replyTicket" class="StaffAction" method="replyTicket">
+            <result name="replysuccess">/Staff/HandleTicket.jsp</result>
+        </action>
+        <action name="deliverTicket" class="StaffAction" method="deliverTicket">
+            <result name="deliversuccess">/Staff/HandleTicket.jsp</result>
+        </action>
+        <action name="modifyOrder" class="StaffAction" method="modifyOrder">
+            <result name="modifysuccess">/Staff/ModifyOrder.jsp</result>
+        </action>
+        <action name="findCustomer" class="StaffAction" method="findCustomer">
+            <result name="findsuccess">/Staff/ModifyCustomer.jsp</result>
+        </action>
+        <action name="findIDeveloper" class="StaffAction" method="findIDeveloper">
+            <result name="findsuccess">/Staff/ModifyDeveloper.jsp</result>
+        </action>
+        <action name="findTDeveloper" class="StaffAction" method="findTDeveloper">
+            <result name="findsuccess">/Staff/ModifyDeveloper.jsp</result>
+        </action>
+        <action name="findOrder" class="StaffAction" method="findOrder">
+            <result name="findsuccess">/Staff/ModifyOrder.jsp</result>
+        </action>
+        <action name="updateCustomer" class="StaffAction" method="updateCustomer">
+            <result name="updatesuccess">/Staff/ModifyCustomer.jsp</result>
+        </action>
+        <action name="updateIDeveloper" class="StaffAction" method="updateIDeveloper">
+            <result name="updatesuccess">/Staff/ModifyDeveloper.jsp</result>
+        </action>
+        <action name="updateTDeveloper" class="StaffAction" method="updateTDeveloper">
+            <result name="updatesuccess">/Staff/ModifyDeveloper.jsp</result>
+        </action>
+
+        <!-- 管理员功能 -->
+        <action name="findStaff" class="AdministratorAction" method="findStaff">
+            <result name="findsuccess">/Admin/HandleStaff.jsp</result>
+        </action>
+        <action name="findAdmin" class="AdministratorAction" method="findAdministrator">
+            <result name="findsuccess">/Admin/HandleAdmin.jsp</result>
+        </action>
+        <action name="findGame" class="AdministratorAction" method="findGame">
+            <result name="findsuccess">/Admin/HandleGame.jsp</result>
+        </action>
+        <action name="checkGamePrice" class="AdministratorAction" method="checkGamePrice">
+            <result name="checksuccess">/Admin/GamePrice.jsp</result>
+        </action>
+        <action name="placeMallPrice" class="AdministratorAction" method="placeMallPrice">
+            <result name="placesuccess">/Admin/GamePrice.jsp</result>
+        </action>
+        <action name="searchGames" class="AdministratorAction" method="searchGames">
+            <result name="searchsuccess">/Admin/HandleGame.jsp</result>
+        </action>
+        <action name="searchGame" class="AdministratorAction" method="searchGame">
+            <result name="searchsuccess">/Admin/GamePrice.jsp</result>
+        </action>
+        <action name="showGameType" class="AdministratorAction" method="showGameType">
+            <result name="showsuccess">/Admin/GameType.jsp</result>
+        </action>
+        <action name="addGameType" class="AdministratorAction" method="addGameType">
+            <result name="addsuccess">/Admin/GameType.jsp</result>
+        </action>
+        <action name="onTheShelf" class="AdministratorAction" method="onTheShelf">
+            <result name="onTheShelfsuccess">/Admin/HandleGame.jsp</result>
+        </action>
+        <action name="offTheShelf" class="AdministratorAction" method="offTheShelf">
+            <result name="offTheShelfsuccess">/Admin/HandleGame.jsp</result>
+        </action>
+        <action name="addAdmin" class="AdministratorAction" method="addAdmin">
+            <result name="addsuccess">/Admin/HandleAdmin.jsp</result>
+            <result name="addfail">/Admin/HandleAdmin.jsp</result>
+        </action>
+        <action name="dismissStaff" class="AdministratorAction" method="dismissStaff">
+            <result name="dismisssuccess">/Admin/HandleStaff.jsp</result>
+            <result name="dismissfail">/Admin/AdminPage.jsp</result>
+        </action>
+        <action name="dispatchStaff" class="AdministratorAction" method="dispatchStaff">
+            <result name="dispatchsuccess">/Admin/HandleStaff.jsp</result>
+            <result name="dispatchfail">/Admin/HandleStaff.jsp</result>
+        </action>
+        <action name="confirmMessages" class="StaffAction" method="confirmMessage">
+            <result name="confirmsuccess">/Admin/ConfirmMessage.jsp</result>
+        </action>
+
+        <!-- 审核员功能 -->
+        <action name="checkIdeveloper" class="StaffAction" method="checkIDeveloper">
+            <result name="checksuccess">/Staff/CheckDeve.jsp</result>
+        </action>
+        <action name="checkTdeveloper" class="StaffAction" method="checkTDeveloper">
+            <result name="checksuccess">/Staff/CheckDeve.jsp</result>
+        </action>
+        <action name="checkIDeveSuccess" class="StaffAction" method="checkIDeveSuccess">
+            <result name="checksuccess">/Staff/CheckDeve.jsp</result>
+        </action>
+        <action name="checkIDeveFail" class="StaffAction" method="checkIDeveFail">
+            <result name="checksuccess">/Staff/CheckDeve.jsp</result>
+        </action>
+        <action name="checkTDeveSuccess" class="StaffAction" method="checkTDeveSuccess">
+            <result name="checksuccess">/Staff/CheckDeve.jsp</result>
+        </action>
+        <action name="checkTDeveFail" class="StaffAction" method="checkTDeveFail">
+            <result name="checksuccess">/Staff/CheckDeve.jsp</result>
+        </action>
+        <action name="downloadGame" class="StaffAction" method="downloadGame">
+            <result name="downloadsuccess" type="stream">
+                <param name="inputName">is</param>
+                <param name="contentDisposition">attachment;filename=${fileName}</param>
+                <param name="bufferSize">4096</param>
+            </result>
+        </action>
+        <action name="checkGame" class="StaffAction" method="checkGame">
+            <result name="checksuccess">/Staff/CheckGame.jsp</result>
+        </action>
+        <action name="gameDetails" class="StaffAction" method="gameDetails">
+            <result name="detailsuccess">/Staff/GameDetails.jsp</result>
+        </action>
+        <action name="checkGameContentSuccess" class="StaffAction" method="checkGameContentSuccess">
+            <result name="checksuccess">/Staff/CheckGame.jsp</result>
+        </action>
+        <action name="checkGameContentFail" class="StaffAction" method="checkGameContentFail">
+            <result name="checksuccess">/Staff/CheckGame.jsp</result>
+        </action>
+
+    </package>
+</struts>

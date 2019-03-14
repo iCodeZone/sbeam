@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping>
+    <class name="sbeam.po.ticket.Ticket" table="problem" catalog="sbeam">
+        <id name="pid" type="java.lang.Integer">
+            <column name="pid " />
+            <generator class="increment" />
+        </id>
+        <property name="pfid" type="java.lang.Integer">
+            <column name="pfid"/>
+        </property>
+        <property name="ptype" type="java.lang.Integer">
+            <column name="ptype"/>
+        </property>
+        <property name="pcontent" type="java.lang.String">
+            <column name="pcontent" length="100" />
+        </property>
+        <property name="pstate" type="java.lang.Integer">
+            <column name="pstate" />
+        </property>
+        <property name="putime" type="java.util.Date">
+            <column name="putime"/>
+        </property>
+        <property name="petime" type="java.util.Date">
+            <column name="petime" />
+        </property>
+        <property name="premes" type="java.lang.String">
+            <column name="premes" length="100" />
+        </property>
+        <property name="pphotoaddr" type="java.lang.String">
+            <column name="pphotoaddr" length="100" />
+        </property>
+        <property name="sid" type="java.lang.Integer">
+            <column name="sid"/>
+        </property>
+        <property name="type" type="java.lang.Integer">
+            <column name="type"/>
+        </property>
+    </class>
+</hibernate-mapping>

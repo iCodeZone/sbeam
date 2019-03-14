@@ -1,0 +1,71 @@
+* { font-family: 'Open Sans', sans-serif; }
+body { background-color: white; }
+h1 { font-size: 24px; }
+.btn a {
+    color: white;
+    text-decoration: none;
+}
+
+.templatemo-sidebar {
+    padding: 0;
+}
+.templatemo-sidebar .templatemo-sidebar-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.templatemo-sidebar .templatemo-sidebar-menu > li {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0px;
+}
+/*"功能"一整个div的样式*/
+.templatemo-sidebar .templatemo-sidebar-menu > li > a {
+    width:235px;
+    display: block;
+    position: relative;
+    margin: 0;
+    border: 0px;
+    padding: 20px 15px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 300;  
+}
+.templatemo-sidebar-menu a { color: black; }
+.templatemo-sidebar-menu a:hover { text-decoration: none; }
+.templatemo-sidebar-menu li.sub .templatemo-submenu { display: none; }
+.templatemo-sidebar-menu li.sub.open .templatemo-submenu { display: block; }
+.templatemo-submenu { padding-left: 0; }
+.templatemo-submenu li {
+    list-style: none;
+    background-color: #DFDFDF;
+    width:235px;
+}
+.templatemo-submenu li a {
+    display: block;
+    padding: 20px 15px;
+    margin: 0;
+}
+/*“功能”底色*/
+.templatemo-sidebar-menu > li.sub.open > a {
+    background-color: rgba(145,145,145,0.3);
+}
+/*“功能”滑过变色*/
+.templatemo-sidebar .templatemo-sidebar-menu >li.active, .templatemo-sidebar .templatemo-sidebar-menu>li>a:hover {
+    background-color: rgb(244,246,252);
+}
+/*操作滑过变色*/
+.templatemo-submenu li > a:hover {
+    background-color: rgb(228,228,228);
+}
+.templatemo-sidebar .templatemo-sidebar-menu > li > a > i {
+    font-size: 16px;
+    top: 2px;
+    margin-top: 1px;
+    margin-left: 1px;
+    margin-right: 4px;
+    display: inline-block;
+    width: 1.25em;
+    text-align: center;
+}

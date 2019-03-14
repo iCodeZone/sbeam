@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="sbeam.po.developer.individual.IndividualDeveloper" table="individualdeveloper" catalog="sbeam">
+        <id name="id" type="java.lang.Integer">
+            <column name="iid" />
+            <generator class="increment"/>
+        </id>
+        <property name="account" type="java.lang.String">
+            <column name="iaccount" length="20"/>
+        </property>
+        <property name="name" type="java.lang.String">
+            <column name="iname" length="20"/>
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="ipassword" length="20"/>
+        </property>
+        <property name="idnumber" type="java.lang.String">
+            <column name="iIDnumber" length="18"/>
+        </property>
+        <property name="check" type="java.lang.Boolean">
+            <column name="icheck"/>
+        </property>
+        <property name="bankcard" type="java.lang.String">
+            <column name="ibankcard" length="30"/>
+        </property>
+        <property name="sid" type="java.lang.Integer">
+            <column name="sid"/>
+        </property>
+        <property name="time" type="java.util.Date">
+            <column name="ctime"/>
+        </property>
+        <many-to-one name="team"  class="sbeam.po.developer.team.TeamDeveloper" fetch="select"  cascade="save-update" lazy="false">
+            <column name="tid" not-null="false"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

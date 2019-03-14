@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="sbeam.po.developer.team.TeamDeveloper" table="teamdeveloper" catalog="sbeam">
+        <id name="id" type="java.lang.Integer">
+            <column name="tid" />
+            <generator class="increment"></generator>
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="tname" length="20"/>
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="tpassword" length="20"/>
+        </property>
+        <property name="address" type="java.lang.String">
+            <column name="taddress" length="50"/>
+        </property>
+        <property name="registmark" type="java.lang.String">
+            <column name="tregistermark" length="30"/>
+        </property>
+        <property name="website" type="java.lang.String">
+            <column name="twebsite" length="50"/>
+        </property>
+        <property name="bankcard" type="java.lang.String">
+            <column name="tbankcard" length="30"/>
+        </property>
+        <property name="check" type="java.lang.Boolean">
+            <column name="tcheck"/>
+        </property>
+        <property name="sid" type="java.lang.Integer">
+            <column name="sid"/>
+        </property>
+        <property name="time" type="java.util.Date">
+            <column name="ctime"/>
+        </property>
+        <set name="staffs" inverse="true" cascade="save-update" lazy="false">
+            <key column="tid" not-null="false"/>
+            <one-to-many class="sbeam.po.developer.individual.IndividualDeveloper"/>
+        </set>
+
+    </class>
+</hibernate-mapping>

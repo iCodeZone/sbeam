@@ -1,0 +1,25 @@
+<?xml version="1.0"  encoding="utf-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="sbeam.po.order.Order" table="oder" catalog="sbeam">
+        <id name="id" type="java.lang.Integer" column="oid">
+            <generator class="increment"/>
+        </id>
+        <many-to-one name="customer" class="sbeam.po.user.Customer">
+            <column name="cid"/>
+        </many-to-one>
+        <many-to-one name="game" class="sbeam.po.game.Game" lazy="false">
+            <column name="gid"/>
+        </many-to-one>
+
+        <property name="date" type="java.util.Date" column="otime"/>
+        <property name="pay" type="java.lang.Double" column="actualpay"/>
+        <property name="state" type="java.lang.Integer" column="ostate"/>
+        <property name="show" type="java.lang.Boolean" column="oshow"/>
+
+    </class>
+</hibernate-mapping>

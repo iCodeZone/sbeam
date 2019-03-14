@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping>
+	<class name="sbeam.po.administrator.Administrator" table="admin" catalog="sbeam">
+		<id name="aid" type="java.lang.Integer">
+			<column name="aid"/>
+			<generator class="assigned" />
+		</id> 
+		<property name="apassword" type="java.lang.String">
+			<column name="apassword" length="20"/>
+		</property>
+	</class>
+</hibernate-mapping>

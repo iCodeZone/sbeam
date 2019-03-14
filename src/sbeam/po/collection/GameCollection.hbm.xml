@@ -1,0 +1,15 @@
+<?xml version="1.0"  encoding="utf-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="sbeam.po.collection.GameCollection" table="collection" catalog="sbeam">
+        <id name="id" column="coid" type="java.lang.Integer">
+            <generator class="increment"/>
+        </id>
+        <many-to-one name="customer" column="cid" class="sbeam.po.user.Customer"/>
+        <many-to-one name="game" column="gid" class="sbeam.po.game.Game" lazy="false"/>
+    </class>
+</hibernate-mapping>

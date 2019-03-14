@@ -1,0 +1,34 @@
+<?xml version="1.0"  encoding="utf-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="sbeam.po.user.Customer" table="customer" catalog="sbeam">
+        <id name="id" type="java.lang.Integer" column="cid">
+            <generator class="assigned"/>
+        </id>
+
+        <property name="account" type="java.lang.String" column="caccount" length="20"/>
+        <property name="password" type="java.lang.String" column="cpassword" length="20"/>
+        <property name="phone" type="java.lang.String" column="cphone" length="20"/>
+        <property name="birthday" type="java.util.Date" column="cbirthday"/>
+
+        <set name="orders" inverse="true" table="oder" cascade="all-delete-orphan" catalog="sbeam">
+            <key column="cid"/>
+            <one-to-many class="sbeam.po.order.Order"/>
+        </set>
+
+        <set name="evaluates" table="evaluate" inverse="true" catalog="sbeam" cascade="all-delete-orphan">
+            <key column="cid"/>
+            <one-to-many class="sbeam.po.evaluate.Evaluate"/>
+        </set>
+
+        <set name="collections" table="collection" inverse="true" catalog="sbeam" cascade="all-delete-orphan">
+            <key column="cid"/>
+            <one-to-many class="sbeam.po.collection.GameCollection"/>
+        </set>
+
+    </class>
+</hibernate-mapping>

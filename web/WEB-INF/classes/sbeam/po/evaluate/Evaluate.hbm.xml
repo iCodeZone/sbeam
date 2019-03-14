@@ -1,0 +1,23 @@
+<?xml version="1.0"  encoding="utf-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="sbeam.po.evaluate.Evaluate" table="evaluate" catalog="sbeam">
+        <id name="id" column="eid" type="java.lang.Integer">
+            <generator class="increment"/>
+        </id>
+        <many-to-one name="customer" class="sbeam.po.user.Customer" lazy="false">
+            <column name="cid"/>
+        </many-to-one>
+        <many-to-one name="game" class="sbeam.po.game.Game" fetch="select" cascade="save-update" lazy="false">
+            <column name="gid"/>
+        </many-to-one>
+
+        <property name="star" type="java.lang.Integer" column="star"/>
+        <property name="word" type="java.lang.String" column="word"/>
+
+    </class>
+</hibernate-mapping>

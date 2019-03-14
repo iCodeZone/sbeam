@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-mapping>
+	<class name="sbeam.po.staff.Staff" table="staff" catalog="sbeam">
+		<id name="sid" type="java.lang.Integer">
+			<column name="sid"/>
+			<generator class="assigned" />
+		</id> 
+		<property name="spassword" type="java.lang.String">
+			<column name="spassword" length="20"/>
+		</property>
+		<property name="stype" type="java.lang.Integer">
+			<column name="stype"/>
+		</property>
+	</class>
+</hibernate-mapping>
